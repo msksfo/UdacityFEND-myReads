@@ -114,13 +114,13 @@ class BooksApp extends Component {
     if (bookMatch){
       if (chosenShelf === 'none') {
         currentBooks.splice(matchingIndex, 1);
-        searchResultBooks.splice(searchBookIndex, 1, tempBook);
+        //searchResultBooks.splice(searchBookIndex, 1, tempBook);
       }else {
         currentBooks.splice(matchingIndex, 1, tempBook);
-        searchResultBooks.splice(searchBookIndex, 1, tempBook);
+        //searchResultBooks.splice(searchBookIndex, 1, tempBook);
       }   
     } else {
-      searchResultBooks.splice(searchBookIndex, 1, tempBook);
+      //searchResultBooks.splice(searchBookIndex, 1, tempBook);
       currentBooks.push(tempBook)
     }
 
