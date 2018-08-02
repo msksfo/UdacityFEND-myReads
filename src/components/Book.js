@@ -54,7 +54,6 @@ Book.propTypes = {
     selected: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     bookTitle: PropTypes.string.isRequired,
-    authors: PropTypes.array
 }
 
 export default Book

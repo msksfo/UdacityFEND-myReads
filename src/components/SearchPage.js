@@ -35,18 +35,32 @@ class SearchPage extends Component {
     
                     <div className="search-books-results">
                         <ol className="books-grid">
-    
-                        {filteredBooks.map(book => (
-                            <li key={book.id}>
-                                <Book bookTitle={book.title}
-                                    authors={book.authors}
-                                    bookCover={book.imageLinks.thumbnail}
-                                    onChange={this.props.handleChange}  
-                                    id={book.id}
-                                    selected={book.shelf}
-                                />
-                            </li>
-                        ))}
+
+                        {/* Conditional checks if more than one author. If so, separate with a comma */}
+                        {filteredBooks.map(book => {
+                            if (book.authors.length === 1){
+                                return <li key={book.id}>
+                                            <Book bookTitle={book.title}
+                                                authors={book.authors}
+                                                bookCover={book.imageLinks.thumbnail}
+                                                onChange={this.props.handleChange}  
+                                                id={book.id}
+                                                selected={book.shelf}
+                                            />
+                                        </li>
+                            } else if (book.authors.length > 1){
+                                return <li key={book.id}>
+                                            <Book bookTitle={book.title}
+                                                authors={book.authors.join(', ')}
+                                                bookCover={book.imageLinks.thumbnail}
+                                                onChange={this.props.handleChange}  
+                                                id={book.id}
+                                                selected={book.shelf}
+                                            />
+                                        </li>
+                            }
+                           
+                        })}
     
                         </ol>
                     </div>
@@ -78,8 +92,7 @@ class SearchPage extends Component {
             )
         }
         
-    }
-    
+    }    
     
 }
 

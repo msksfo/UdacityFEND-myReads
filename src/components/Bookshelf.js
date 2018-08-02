@@ -8,9 +8,10 @@ class Bookshelf extends Component {
 
    
     render(){
-        // 1. map over the array of books that will be passed to this bookshelf
-        // 2. for each book object in the array, create an li element 
-        // 3. add a book component (with all necessary props passed in) to each li
+        /* 1. map over the array of books that will be passed to this bookshelf
+           2. for each book object in the array, create an li element
+           3. add a book component (with all necessary props passed in) to each li. If more       than one author, separate them with a comma
+        */
 
 
         const bookshelfBooks = this.props.books;
@@ -22,17 +23,30 @@ class Bookshelf extends Component {
     
                     <ol className="books-grid">
                         
-                        {bookshelfBooks.map(book => (
-                            <li key={book.id}>
-                                <Book bookTitle={book.title}
-                                      authors={book.authors}
-                                      bookCover={book.imageLinks.thumbnail}
-                                      onChange={this.props.onChange}  
-                                      id={book.id}
-                                      selected={book.shelf}
-                                />
-                            </li>
-                        ))}
+                        {bookshelfBooks.map(book => {
+                            if (book.authors.length === 1){
+                                return <li key={book.id}>
+                                            <Book bookTitle={book.title}
+                                                authors={book.authors}
+                                                bookCover={book.imageLinks.thumbnail}
+                                                onChange={this.props.onChange}  
+                                                id={book.id}
+                                                selected={book.shelf}
+                                            />
+                                        </li>
+                            } else if (book.authors.length > 1){
+                                return <li key={book.id}>
+                                            <Book bookTitle={book.title}
+                                                authors={book.authors.join(', ')}
+                                                bookCover={book.imageLinks.thumbnail}
+                                                onChange={this.props.onChange}  
+                                                id={book.id}
+                                                selected={book.shelf}
+                                            />
+                                        </li>
+                            }
+                                
+                        })}
                        
                     </ol>
                     

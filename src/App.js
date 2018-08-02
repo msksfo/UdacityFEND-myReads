@@ -73,8 +73,7 @@ class BooksApp extends Component {
     this.setState( {
       books: currentBooks
     })
-    console.log(this.state.books)
-
+    
   }
 
   
