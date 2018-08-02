@@ -60,7 +60,7 @@ class BooksApp extends Component {
     const currentBookIndex = currentBooks.findIndex(value => value.id === book.id);
 
     // make a temporary book that updates the shelf to the selected option
-    const tempBook = currentBooks[currentBookIndex];
+    const tempBook = Object.assign({}, currentBooks[currentBookIndex]);
     tempBook.shelf = chosenShelf;
 
     /* delete the original book object from the array of bookshelved books. add the temp book object to that array IF the chosen shelf is not 'none'.  */
@@ -91,7 +91,7 @@ class BooksApp extends Component {
     const searchBookIndex = searchResultBooks.findIndex(value => value.id === book.id);
 
     // make a temporary book that updates the shelf to the selected option
-    let tempBook = searchResultBooks[searchBookIndex];
+    const tempBook = Object.assign({}, searchResultBooks[searchBookIndex]);
     tempBook.shelf = chosenShelf;
 
     // check if the targeted book is already on a bookshelf. If it is- get the index
@@ -107,12 +107,20 @@ class BooksApp extends Component {
       }
     });
 
-    /* IF the chosen shelf is 'none', AND the book is already on a bookshelf- delete it from the array of shelved books. Otherwise delete it from the array of search results and add the temp book to the array of shelved books.
+    /* A. If the chosen shelf is 'none', AND the book is already on a bookshelf- delete it           from the array of shelved books.
+       B. If the chosen shelf is anything besides 'none', AND the book is already on a            bookshelf- delete that book object and replace it with the one showing the chosen       shelf (the temp book). 
+       C. Otherwise add the book to the array of shelved books.
     */
-    if (chosenShelf === 'none' && bookMatch === true){
-      currentBooks.splice(matchingIndex, 1);
+    if (bookMatch){
+      if (chosenShelf === 'none') {
+        currentBooks.splice(matchingIndex, 1);
+        searchResultBooks.splice(searchBookIndex, 1, tempBook);
+      }else {
+        currentBooks.splice(matchingIndex, 1, tempBook);
+        searchResultBooks.splice(searchBookIndex, 1, tempBook);
+      }   
     } else {
-      searchResultBooks.splice(searchBookIndex, 1);
+      searchResultBooks.splice(searchBookIndex, 1, tempBook);
       currentBooks.push(tempBook)
     }
 
