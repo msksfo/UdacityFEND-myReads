@@ -15,10 +15,10 @@ class Book extends Component {
 
                     {/* if the json data returns an image thumbnail for the book, display it as the background image for the book component. otherwise set a backgrouond color. */}
                     
-                    { !this.props.imageLinks || !this.props.imageLinks.thumbnail
-                        ? <div className='book-cover' style={{ width: 128, height: 193, background: '#becace'}}></div>
+                    { this.props.bookCover
+                        ? <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.bookCover})`}}></div>
 
-                        : <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.imageLinks.thumbnail})`}}></div>
+                        : <div className='book-cover' style={{ width: 128, height: 193, background: '#becace'}}></div>
                     }
                     
                     <div className="book-shelf-changer">
@@ -54,7 +54,7 @@ Book.propTypes = {
     selected: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     bookTitle: PropTypes.string.isRequired,
-    authors: PropTypes.string
+    authors: PropTypes.array
 }
 
 export default Book

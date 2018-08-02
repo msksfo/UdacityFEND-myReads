@@ -39,7 +39,7 @@ class SearchPage extends Component {
                         {filteredBooks.map(book => (
                             <li key={book.id}>
                                 <Book bookTitle={book.title}
-                                    authors={book.authors.join(', ')}
+                                    authors={book.authors}
                                     bookCover={book.imageLinks.thumbnail}
                                     onChange={this.props.handleChange}  
                                     id={book.id}
