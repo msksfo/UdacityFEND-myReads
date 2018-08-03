@@ -5,7 +5,14 @@ function Header() {
     
     return (
         <div className="list-books-title">
-            <h1>MyReads</h1>
+            <div className="content-wrapper">
+                <div className="quote-container">
+                    <q className="quote">Every story I create, creates me. I write to create myself</q>
+                    <p className="quote-author">~ Octavia E. Butler</p>
+                </div>
+                
+                <h1>MyReads</h1>
+            </div>
         </div>
     )
     
