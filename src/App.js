@@ -23,10 +23,9 @@ class BooksApp extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.updateQuery = this.updateQuery.bind(this)
     this.clearSearchFields = this.clearSearchFields.bind(this)
-
-    this.handleSearchChange = this.handleSearchChange.bind(this)
   }
 
+  // render the initial books to the bookshelves
   componentDidMount(){
       BooksAPI.getAll().then(books => {
           this.setState({books})
@@ -47,6 +46,7 @@ class BooksApp extends Component {
     })
   }
 
+  
   handleChange(e){
     // make a copy of the two arrays of books so as not to modify the state directly
     const currentBooks = this.state.books.slice();
@@ -56,82 +56,53 @@ class BooksApp extends Component {
     const chosenShelf = e.target.value;
     const book = e.target.parentElement.parentElement.parentElement;
 
-    // get the array index of the book that triggered the change event
-    const currentBookIndex = currentBooks.findIndex(value => value.id === book.id);
+    BooksAPI.update(book, chosenShelf)
+      .then( (data) => {
+        console.log(data);
 
-    // make a temporary book that updates the shelf to the selected option
-    const tempBook = Object.assign({}, currentBooks[currentBookIndex]);
-    tempBook.shelf = chosenShelf;
+        // check if the targeted book is already on a bookshelf. If it is- get the index
+        let bookMatch;
+        let matchingIndex;
 
-    /* delete the original book object from the array of bookshelved books. add the temp book object to that array IF the chosen shelf is not 'none'.  */
-    if (chosenShelf === 'none'){
-      currentBooks.splice(currentBookIndex, 1);
-    }else {
-      currentBooks.splice(currentBookIndex, 1, tempBook);
-    }
+        currentBooks.forEach((value, index) => {
+          if (value.id === book.id){
+            bookMatch = true;
+            matchingIndex = index;
+          } else {
+            bookMatch = false;
+          }
+        });
 
-    this.setState( {
-      books: currentBooks
-    })
-    
+        /* A. If the chosen shelf is 'none', AND the book is already on a bookshelf- delete it           from the array of shelved books.
+          B. If the chosen shelf is anything besides 'none', AND the book is already on a         bookshelf- delete that book object and replace it with the one showing the chosen    shelf (the temp book). 
+          C. Otherwise add the book to the array of shelved books.
+        */
+        if (bookMatch){
+          if (chosenShelf === 'none') {
+            currentBooks.splice(matchingIndex, 1);
+          }else {
+            currentBooks[matchingIndex].shelf = chosenShelf;
+          }   
+        } else {
+          // get the array index of the book that triggered the change event
+          const searchBookIndex = searchResultBooks.findIndex(value => value.id === book.id);
+
+          // make a temporary book that updates the shelf to the selected option
+          const tempBook = Object.assign({}, searchResultBooks[searchBookIndex]);
+          tempBook.shelf = chosenShelf;
+
+          // add the temp book to the array of current books
+          currentBooks.push(tempBook)
+        }
+
+        this.setState( {
+          books: currentBooks,
+          searchResults: searchResultBooks
+        })
+      })
+      .catch( (err) => console.log('Error: ', err))
   }
 
-  
-
-  handleSearchChange(e){
-    // make a copy of the two arrays of books so as not to modify the state directly
-    const currentBooks = this.state.books.slice();
-    const searchResultBooks = this.state.searchResults.slice()
-
-    // get the book and the shelf the user wants to move the book to
-    const chosenShelf = e.target.value;
-    const book = e.target.parentElement.parentElement.parentElement;
-    
-    // get the array index of the book that triggered the change event
-    const searchBookIndex = searchResultBooks.findIndex(value => value.id === book.id);
-
-    // make a temporary book that updates the shelf to the selected option
-    const tempBook = Object.assign({}, searchResultBooks[searchBookIndex]);
-    tempBook.shelf = chosenShelf;
-
-    // check if the targeted book is already on a bookshelf. If it is- get the index
-    let bookMatch;
-    let matchingIndex;
-
-    currentBooks.forEach((value, index) => {
-      if (value.id === book.id){
-        bookMatch = true;
-        matchingIndex = index;
-      } else {
-        bookMatch = false;
-      }
-    });
-
-    /* A. If the chosen shelf is 'none', AND the book is already on a bookshelf- delete it           from the array of shelved books.
-       B. If the chosen shelf is anything besides 'none', AND the book is already on a            bookshelf- delete that book object and replace it with the one showing the chosen       shelf (the temp book). 
-       C. Otherwise add the book to the array of shelved books.
-    */
-    if (bookMatch){
-      if (chosenShelf === 'none') {
-        currentBooks.splice(matchingIndex, 1);
-        //searchResultBooks.splice(searchBookIndex, 1, tempBook);
-      }else {
-        currentBooks.splice(matchingIndex, 1, tempBook);
-        //searchResultBooks.splice(searchBookIndex, 1, tempBook);
-      }   
-    } else {
-      //searchResultBooks.splice(searchBookIndex, 1, tempBook);
-      currentBooks.push(tempBook)
-    }
-
-    this.setState( {
-      books: currentBooks,
-      searchResults: searchResultBooks
-    })
-      
-  }
-
-  
 
   updateQuery(text) {
     // 1. set the state of the query based off of user input
@@ -174,7 +145,7 @@ class BooksApp extends Component {
                       value={this.state.query}
                       handleClick={this.clearSearchFields}
                       onTextChange={this.updateQuery}
-                      handleChange={this.handleSearchChange}
+                      handleChange={this.handleChange}
            />
 
         )} />

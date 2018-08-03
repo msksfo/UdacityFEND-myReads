@@ -9,7 +9,7 @@ class Bookshelf extends Component {
     render(){
         /* 1. map over the array of books that will be passed to this bookshelf
            2. for each book object in the array, create an li element
-           3. add a book component (with all necessary props passed in) to each li. If there      is more than one author, separate them with a comma. If no author property          exists, make the author 'anonymous'
+           3. add a book component (with all necessary props passed in) to each li.  If no        author property exists, make the author 'anonymous'
         */
 
         const bookshelfBooks = this.props.books;
@@ -23,43 +23,31 @@ class Bookshelf extends Component {
                         
                         {bookshelfBooks.map(book => {
                             if(book.authors){
-                                if (book.authors.length === 1){
-                                    return <li key={book.id}>
-                                                <Book bookTitle={book.title}
-                                                    authors={book.authors}
-                                                    bookCover={book.imageLinks.thumbnail}
-                                                    onChange={this.props.onChange}  
-                                                    id={book.id}
-                                                    selected={book.shelf}
-                                                />
-                                            </li>
-                                } else if (book.authors.length > 1){
-                                    return <li key={book.id}>
-                                                <Book bookTitle={book.title}
-                                                    authors={book.authors.join(', ')}
-                                                    bookCover={book.imageLinks.thumbnail}
-                                                    onChange={this.props.onChange}  
-                                                    id={book.id}
-                                                    selected={book.shelf}
-                                                />
-                                            </li>
-                                }
+                                return <li key={book.id}>
+                                            <Book bookTitle={book.title}
+                                                authors={book.authors.join(', ')}
+                                                bookCover={book.imageLinks}
+                                                onChange={this.props.onChange}  
+                                                id={book.id}
+                                                selected={book.shelf}
+                                            />
+                                        </li>
+                                
                             }else {
                                 return <li key={book.id}>
-                                                <Book bookTitle={book.title}
-                                                    authors={`Anonymous`}
-                                                    bookCover={book.imageLinks.thumbnail}
-                                                    onChange={this.props.onChange}  
-                                                    id={book.id}
-                                                    selected={book.shelf}
-                                                />
-                                            </li>
+                                            <Book bookTitle={book.title}
+                                                authors={`Anonymous`}
+                                                bookCover={book.imageLinks}
+                                                onChange={this.props.onChange}  
+                                                id={book.id}
+                                                selected={book.shelf}
+                                            />
+                                        </li>
                             }
                             
                         })}
                        
-                    </ol>
-                    
+                    </ol>    
                 </div>
             )
         } else {

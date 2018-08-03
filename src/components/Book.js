@@ -15,8 +15,8 @@ class Book extends Component {
 
                     {/* if the json data returns an image thumbnail for the book, display it as the background image for the book component. otherwise set a backgrouond color. */}
                     
-                    { this.props.bookCover
-                        ? <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.bookCover})`}}></div>
+                    { (this.props.bookCover && this.props.bookCover.thumbnail)
+                        ? <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.bookCover.thumbnail})`}}></div>
 
                         : <div className='book-cover' style={{ width: 128, height: 193, background: '#becace'}}></div>
                     }
@@ -34,13 +34,7 @@ class Book extends Component {
                 </div> 
 
                 <div className="book-title">{this.props.bookTitle}</div>
-
-                {/* if the json data lists an author(s) for the book, display it. otherwise display 'anonymous' */}
-                { this.props.authors
-                    ? <div className="book-authors">{this.props.authors}</div>
-                    : <div className="book-authors">Anonymous</div> 
-                }
-                
+                <div className="book-authors">{this.props.authors}</div>
             </div>
         )
     }
@@ -50,7 +44,7 @@ class Book extends Component {
 
 Book.propTypes = {
     id: PropTypes.string.isRequired,
-    bookCover: PropTypes.string,
+    bookCover: PropTypes.object,
     selected: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     bookTitle: PropTypes.string.isRequired,
