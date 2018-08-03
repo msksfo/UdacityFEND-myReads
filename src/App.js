@@ -9,8 +9,6 @@ import Main from './components/Main';
 import Header from './components/Header';
 import OpenSearch from './components/OpenSearch';
 
-
-
 class BooksApp extends Component {
 
   constructor(props){
@@ -59,11 +57,18 @@ class BooksApp extends Component {
     BooksAPI.update(book, chosenShelf)
       .then( (data) => {
         console.log(data);
-
+        
         // check if the targeted book is already on a bookshelf. If it is- get the index
-        let bookMatch;
+        let bookMatch = false;
         let matchingIndex;
 
+        currentBooks.some((value, index) => {
+          if (value.id === book.id){
+            bookMatch = true;
+            matchingIndex = index;
+          }
+        });
+        /*
         currentBooks.forEach((value, index) => {
           if (value.id === book.id){
             bookMatch = true;
@@ -72,7 +77,9 @@ class BooksApp extends Component {
             bookMatch = false;
           }
         });
+        */
 
+        
         /* A. If the chosen shelf is 'none', AND the book is already on a bookshelf- delete it           from the array of shelved books.
           B. If the chosen shelf is anything besides 'none', AND the book is already on a         bookshelf- delete that book object and replace it with the one showing the chosen    shelf (the temp book). 
           C. Otherwise add the book to the array of shelved books.

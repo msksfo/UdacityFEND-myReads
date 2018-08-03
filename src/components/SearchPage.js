@@ -10,7 +10,6 @@ class SearchPage extends Component {
         this.filterSearch = this.filterSearch.bind(this)
     }
 
-
     filterSearch(e) {
         this.props.onTextChange(e.target.value);
     }
