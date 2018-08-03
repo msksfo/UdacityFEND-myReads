@@ -36,28 +36,40 @@ class SearchPage extends Component {
                     <div className="search-books-results">
                         <ol className="books-grid">
 
-                        {/* Conditional checks if more than one author. If so, separate with a comma */}
+                        {/* Conditional checks if more than one author. If so, separate with a comma. If author property does not exist, make the author 'anonymous' */}
                         {filteredBooks.map(book => {
-                            if (book.authors.length === 1){
+                            if (book.authors){
+                                if (book.authors.length === 1){
+                                    return <li key={book.id}>
+                                                <Book bookTitle={book.title}
+                                                    authors={book.authors}
+                                                    bookCover={book.imageLinks.thumbnail}
+                                                    onChange={this.props.handleChange}  
+                                                    id={book.id}
+                                                    selected={book.shelf}
+                                                />
+                                            </li>
+                                } else if (book.authors.length > 1){
+                                    return <li key={book.id}>
+                                                <Book bookTitle={book.title}
+                                                    authors={book.authors.join(', ')}
+                                                    bookCover={book.imageLinks.thumbnail}
+                                                    onChange={this.props.handleChange}  
+                                                    id={book.id}
+                                                    selected={book.shelf}
+                                                />
+                                            </li>
+                                }
+                            } else {
                                 return <li key={book.id}>
-                                            <Book bookTitle={book.title}
-                                                authors={book.authors}
-                                                bookCover={book.imageLinks.thumbnail}
-                                                onChange={this.props.handleChange}  
-                                                id={book.id}
-                                                selected={book.shelf}
-                                            />
-                                        </li>
-                            } else if (book.authors.length > 1){
-                                return <li key={book.id}>
-                                            <Book bookTitle={book.title}
-                                                authors={book.authors.join(', ')}
-                                                bookCover={book.imageLinks.thumbnail}
-                                                onChange={this.props.handleChange}  
-                                                id={book.id}
-                                                selected={book.shelf}
-                                            />
-                                        </li>
+                                                <Book bookTitle={book.title}
+                                                    authors={`Anonymous`}
+                                                    bookCover={book.imageLinks.thumbnail}
+                                                    onChange={this.props.handleChange}  
+                                                    id={book.id}
+                                                    selected={book.shelf}
+                                                />
+                                            </li>
                             }
                            
                         })}
