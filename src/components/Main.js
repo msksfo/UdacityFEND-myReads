@@ -1,22 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Bookshelf from './Bookshelf';
 import '../App.css'
 import PropTypes from 'prop-types'
 
-class Main extends Component {
+function Main(props) {
 
-    render(){
-        return (
-            <div className="list-books-content">
-                <Bookshelf  bookshelfTitle='Currently Reading' onChange={this.props.onChange} books={this.props.books.filter(value => value.shelf === 'currentlyReading')}/>
-                                
-                <Bookshelf bookshelfTitle='Want To Read' onChange={this.props.onChange} books={this.props.books.filter(value => value.shelf === 'wantToRead')}/>
+    return (
+        <div className="list-books-content">
+            <Bookshelf  bookshelfTitle='Currently Reading' onChange={props.onChange} books={props.books.filter(value => value.shelf === 'currentlyReading')}/>
+                            
+            <Bookshelf bookshelfTitle='Want To Read' onChange={props.onChange} books={props.books.filter(value => value.shelf === 'wantToRead')}/>
 
-                <Bookshelf bookshelfTitle='Read' onChange={this.props.onChange} books={this.props.books.filter(value => value.shelf === 'read')}/>
-                
-            </div>
-        )
-    }
+            <Bookshelf bookshelfTitle='Read' onChange={props.onChange} books={props.books.filter(value => value.shelf === 'read')}/>
+            
+        </div>
+    )   
 }
 
 Main.propTypes = {
