@@ -96,7 +96,7 @@ class SearchPage extends Component {
 
 SearchPage.propTypes = {
     handleClick: PropTypes.func.isRequired,
-    query: PropTypes.string.isRequired,
+    query: PropTypes.string,
     handleChange: PropTypes.func.isRequired,
     filteredBooks: PropTypes.array.isRequired,
     onTextChange: PropTypes.func.isRequired
