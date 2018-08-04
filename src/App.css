@@ -12,6 +12,11 @@ body, .app {
   background: white;
 }
 
+.app {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
 /***************** main page ******************/
 
 
