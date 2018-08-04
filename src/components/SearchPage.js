@@ -37,8 +37,7 @@ function SearchPage(props) {
             </div>
         )
     } 
-          
-           
+                     
 }
 
 SearchPage.propTypes = {
