@@ -5,7 +5,7 @@ import App from './App'
 import './index.css'
 
 ReactDOM.render(
-    <BrowserRouter basename={"/UdacityFEND-myReads"}> 
+    <BrowserRouter basename="/UdacityFEND-myReads"> 
         <App />
     </BrowserRouter>, document.getElementById('root')
 )
