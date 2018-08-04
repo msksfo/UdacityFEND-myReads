@@ -1,8 +1,7 @@
 {
+  "homepage": "https://msksfo.github.io/UdacityFEND-myReads/",
   "dependencies": {
     "escape-string-regexp": "^1.0.5",
-    "gh-pages": "^1.2.0",
-    "homepage": "https://msksfo.github.io/UdacityFEND-myReads/",
     "prop-types": "^15.6.2",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
@@ -10,6 +9,7 @@
     "sort-by": "^1.2.0"
   },
   "devDependencies": {
+    "gh-pages": "^1.2.0",
     "react-scripts": "1.1.4"
   },
   "scripts": {
