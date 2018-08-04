@@ -139,10 +139,12 @@ class BooksApp extends Component {
               } else {
                 filteredBook.shelf = 'none'
               }
-            })    
-          }
-          this.setState( {searchResults: filteredBooks} )
-          
+            })
+            this.setState( {searchResults: filteredBooks} )    
+          }else {
+            filteredBooks = [];
+            this.setState( {searchResults: filteredBooks} )
+          }  
         }).catch((err) => console.log('Error: ', err))
       }else {
         // necessary in order for search results to go away as user deletes search text
