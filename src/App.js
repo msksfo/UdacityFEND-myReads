@@ -25,7 +25,7 @@ class BooksApp extends Component {
     this.clearSearchFields = this.clearSearchFields.bind(this)
   }
 
-  // render the initial books to the bookshelves
+  // render the initial books to the bookshelves, and quote to the header
   componentDidMount(){
       const firstQuote = this.getNewQuote();
 
@@ -46,6 +46,7 @@ class BooksApp extends Component {
     let clearedArr = this.state.searchResults.slice();
     clearedArr = []
 
+    // put a new quote in the header each time the user returns to the main page
     const newQuote = Object.assign({}, this.getNewQuote())
 
     this.setState({
@@ -152,6 +153,8 @@ class BooksApp extends Component {
     })
   }
 
+
+  // get a random quote from the quotes json file
   getNewQuote(){
     let quotes = Quotes;
     let randomQuote = Quotes[Math.floor(Math.random() * quotes.length)]
@@ -166,7 +169,7 @@ class BooksApp extends Component {
         <Route path="/search" render={() => (
 
           <SearchPage filteredBooks={this.state.searchResults}
-                      value={this.state.query}
+                      query={this.state.query}
                       handleClick={this.clearSearchFields}
                       onTextChange={this.updateQuery}
                       handleChange={this.handleChange}

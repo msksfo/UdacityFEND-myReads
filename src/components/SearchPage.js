@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import { Link } from 'react-router-dom'
 import Book from './Book'
+import PropTypes from 'prop-types'
 
 
 class SearchPage extends Component {
@@ -15,9 +16,9 @@ class SearchPage extends Component {
     }
 
     render(){
-        const filteredBooks = this.props.filteredBooks;
+        //const filteredBooks = this.props.filteredBooks;
         
-        if (filteredBooks.length > 0){
+        if (this.props.filteredBooks.length > 0){
             return (
                 <div className='search-books'>
                     <div className="search-books-bar">
@@ -36,7 +37,7 @@ class SearchPage extends Component {
                         <ol className="books-grid">
 
                         {/* Conditional check for author property. If property does not exist, make the author 'anonymous' */}
-                        {filteredBooks.map(book => {
+                        {this.props.filteredBooks.map(book => {
                             if (book.authors){   
                                 return <li key={book.id}>
                                             <Book bookTitle={book.title}
@@ -91,6 +92,14 @@ class SearchPage extends Component {
         
     }    
     
+}
+
+SearchPage.propTypes = {
+    handleClick: PropTypes.func.isRequired,
+    query: PropTypes.string.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    filteredBooks: PropTypes.array.isRequired,
+    onTextChange: PropTypes.func.isRequired
 }
 
 export default SearchPage;

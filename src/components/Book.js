@@ -37,7 +37,7 @@ function Book(props) {
 
 Book.propTypes = {
     id: PropTypes.string.isRequired,
-    bookCover: PropTypes.object,
+    bookCover: PropTypes.object.isRequired,
     selected: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     bookTitle: PropTypes.string.isRequired,
