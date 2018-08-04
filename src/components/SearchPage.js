@@ -1,75 +1,44 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../App.css';
-import Book from './Book'
 import SearchInput from './SearchInput'
+import SearchResultGrid from './SearchResultGrid'
 import PropTypes from 'prop-types'
 
-
-class SearchPage extends Component {
+function SearchPage(props) {
    
-    render(){
-       
-        if (this.props.filteredBooks.length > 0){
-            return (
-                <div className='search-books'>
+    if (props.filteredBooks.length > 0){
+        return (
+            <div className='search-books'>
 
-                    <SearchInput query={this.props.query}
-                                 handleClick={this.props.handleClick}
-                                 onTextChange={this.props.onTextChange}
-                    />
+                <SearchInput query={props.query}
+                                handleClick={props.handleClick}
+                                onTextChange={props.onTextChange}
+                />
 
-                    <div className="search-books-results">
-                        <ol className="books-grid">
+                <SearchResultGrid handleChange={props.handleChange}
+                                    filteredBooks={props.filteredBooks}
+                />
+            
+            </div>
+        )
+    } else {
+        return (
+            <div className='search-books'>
 
-                        {/* Conditional check for author property. If property does not exist, make the author 'anonymous' */}
-                        {this.props.filteredBooks.map(book => {
-                            if (book.authors){   
-                                return <li key={book.id}>
-                                            <Book bookTitle={book.title}
-                                                authors={book.authors.join(', ')}
-                                                bookCover={book.imageLinks}
-                                                onChange={this.props.handleChange}  
-                                                id={book.id}
-                                                selected={book.shelf}
-                                            />
-                                        </li>
-                                
-                            } else {
-                                return <li key={book.id}>
-                                            <Book bookTitle={book.title}
-                                                authors={`Anonymous`}
-                                                bookCover={book.imageLinks}
-                                                onChange={this.props.handleChange}  
-                                                id={book.id}
-                                                selected={book.shelf}
-                                            />
-                                        </li>
-                            }
-                           
-                        })}
-    
-                        </ol>
-                    </div>
+                <SearchInput query={props.query}
+                                handleClick={props.handleClick}
+                                onTextChange={props.onTextChange}
+                />
+                <div className="search-books-results">
+                    <ol className="books-grid">
+                    </ol>
                 </div>
-            )
-        } else {
-            return (
-                <div className='search-books'>
 
-                    <SearchInput query={this.props.query}
-                                 handleClick={this.props.handleClick}
-                                 onTextChange={this.props.onTextChange}
-                    />
-                    <div className="search-books-results">
-                        <ol className="books-grid">
-                        </ol>
-                    </div>
-                </div>
-            )
-        }
-        
-    }    
-    
+            </div>
+        )
+    } 
+          
+           
 }
 
 SearchPage.propTypes = {
