@@ -1,38 +1,23 @@
 import React, { Component } from 'react';
 import '../App.css';
-import { Link } from 'react-router-dom'
 import Book from './Book'
+import SearchInput from './SearchInput'
 import PropTypes from 'prop-types'
 
 
 class SearchPage extends Component {
-    constructor(props){
-        super(props)
-        this.filterSearch = this.filterSearch.bind(this)
-    }
-
-    filterSearch(e) {
-        this.props.onTextChange(e.target.value);
-    }
-
+   
     render(){
-        //const filteredBooks = this.props.filteredBooks;
-        
+       
         if (this.props.filteredBooks.length > 0){
             return (
                 <div className='search-books'>
-                    <div className="search-books-bar">
-                        <Link to="/" className="close-search" onClick={this.props.handleClick}>Close</Link>
-                        <div className="search-books-input-wrapper">
-                            
-                            <input value={this.props.query}
-                                onChange={this.filterSearch}
-                                type="text" 
-                                placeholder="Search by title or author"/>
-    
-                        </div>
-                    </div>
-    
+
+                    <SearchInput query={this.props.query}
+                                 handleClick={this.props.handleClick}
+                                 onTextChange={this.props.onTextChange}
+                    />
+
                     <div className="search-books-results">
                         <ol className="books-grid">
 
@@ -70,18 +55,11 @@ class SearchPage extends Component {
         } else {
             return (
                 <div className='search-books'>
-                    <div className="search-books-bar">
-                        <Link to="/" className="close-search">Close</Link>
-                        <div className="search-books-input-wrapper">
-                            
-                            <input value={this.props.query}
-                                onChange={this.filterSearch}
-                                type="text" 
-                                placeholder="Search by title or author"/>
-    
-                        </div>
-                    </div>
-    
+
+                    <SearchInput query={this.props.query}
+                                 handleClick={this.props.handleClick}
+                                 onTextChange={this.props.onTextChange}
+                    />
                     <div className="search-books-results">
                         <ol className="books-grid">
                         </ol>

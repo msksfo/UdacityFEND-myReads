@@ -68,7 +68,6 @@ class BooksApp extends Component {
 
     BooksAPI.update(book, chosenShelf)
       .then( (data) => {
-        console.log(data);
         
         // check if the targeted book is already on a bookshelf. If it is- get the index
         let bookMatch = false;
