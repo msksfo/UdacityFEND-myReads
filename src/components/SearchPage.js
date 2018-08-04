@@ -29,11 +29,7 @@ function SearchPage(props) {
                                 handleClick={props.handleClick}
                                 onTextChange={props.onTextChange}
                 />
-                <div className="search-books-results">
-                    <ol className="books-grid">
-                    </ol>
-                </div>
-
+                
             </div>
         )
     } 
