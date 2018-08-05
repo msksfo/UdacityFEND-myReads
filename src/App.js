@@ -20,9 +20,7 @@ class BooksApp extends Component {
         searchResults: [],
         quote: {}
     }
-    this.handleChange = this.handleChange.bind(this)
-    this.updateQuery = this.updateQuery.bind(this)
-    this.clearSearchFields = this.clearSearchFields.bind(this)
+   
   }
 
   // render the initial books to the bookshelves, and quote to the header
@@ -39,7 +37,7 @@ class BooksApp extends Component {
   }
 
   /* Clear the query text and the array of search result books when the user navigates away from the search page */
-  clearSearchFields(){
+  clearSearchFields = () => {
     let clearedQuery = this.state.query.slice();
     clearedQuery = ''
 
@@ -57,7 +55,7 @@ class BooksApp extends Component {
   }
 
   
-  handleChange(e){
+  handleChange = (e) => {
     // make a copy of the two arrays of books so as not to modify the state directly
     const currentBooks = this.state.books.slice();
     const searchResultBooks = this.state.searchResults.slice();
@@ -112,7 +110,7 @@ class BooksApp extends Component {
   }
 
 
-  updateQuery(text) {
+  updateQuery = (text) => {
     // 1. set the state of the query based off of user input
     // 2. search the database for books or authors matching the query
     // 3. loop over the search results to see if the book is already on a bookshelf
