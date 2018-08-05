@@ -73,23 +73,13 @@ class BooksApp extends Component {
         let bookMatch = false;
         let matchingIndex;
 
-        currentBooks.some((value, index) => {
-          if (value.id === book.id){
-            bookMatch = true;
-            matchingIndex = index;
-          }
-        });
-        /*
         currentBooks.forEach((value, index) => {
           if (value.id === book.id){
             bookMatch = true;
             matchingIndex = index;
-          } else {
-            bookMatch = false;
           }
         });
-        */
-
+        
         
         /* A. If the chosen shelf is 'none', AND the book is already on a bookshelf- delete it           from the array of shelved books.
           B. If the chosen shelf is anything besides 'none', AND the book is already on a         bookshelf- delete that book object and replace it with the one showing the chosen    shelf (the temp book). 
