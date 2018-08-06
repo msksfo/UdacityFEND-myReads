@@ -1,6 +1,7 @@
 {
   "homepage": "https://msksfo.github.io/UdacityFEND-myReads/",
   "dependencies": {
+    "deploy": "^1.0.3",
     "escape-string-regexp": "^1.0.5",
     "prop-types": "^15.6.2",
     "react": "^16.3.2",
